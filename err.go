@@ -10,6 +10,7 @@ const (
 	ErrNoDefaultDatabase      = "No default database"
 	ErrNoConnection           = "No connection"
 	ErrCannotSwitchCollection = "Can not switch collection"
+	ErrMongoObjDestroyed      = "The mongo object has been destoryed"
 )
 
 func EqualError(err error, str string) bool {
