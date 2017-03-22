@@ -17,8 +17,8 @@ type Mongoer interface {
 	// CURD
 	Insert(collection string, docs ...interface{}) error
 	Update(collection string, selector interface{}, update interface{}) error
-	Find(collection string, query interface{}) ([]interface{}, error)
-	FindOne(collection string, query interface{}) (interface{}, error)
+	Find(collection string, query interface{}, results interface{}) error
+	FindOne(collection string, query interface{}, result interface{}) error
 	Remove(collection string, selector interface{}) error
 }
 
@@ -72,24 +72,22 @@ func (s *tMongo) Update(collection string, selector interface{}, update interfac
 	return c.Update(selector, update)
 }
 
-func (s *tMongo) Find(collection string, query interface{}) ([]interface{}, error) {
+func (s *tMongo) Find(collection string, query interface{}, results interface{}) error {
 	c := s.Collection(collection)
 	if c == nil {
-		return nil, errors.New(ErrCannotSwitchCollection + " '" + collection + "' in db '" + s.db + "'")
+		return errors.New(ErrCannotSwitchCollection + " '" + collection + "' in db '" + s.db + "'")
 	}
-	var result []interface{}
-	err := c.Find(query).All(&result)
-	return result, err
+	err := c.Find(query).All(&results)
+	return err
 }
 
-func (s *tMongo) FindOne(collection string, query interface{}) (interface{}, error) {
+func (s *tMongo) FindOne(collection string, query interface{}, result interface{}) error {
 	c := s.Collection(collection)
 	if c == nil {
-		return nil, errors.New(ErrCannotSwitchCollection + " '" + collection + "' in db '" + s.db + "'")
+		return errors.New(ErrCannotSwitchCollection + " '" + collection + "' in db '" + s.db + "'")
 	}
-	var result interface{}
 	err := c.Find(query).One(&result)
-	return result, err
+	return err
 }
 
 func (s *tMongo) Remove(collection string, selector interface{}) error {
