@@ -110,7 +110,7 @@ func (s *tMongo) Find(collection string, query interface{}, results interface{})
 	if c == nil {
 		return errors.New(ErrCannotSwitchCollection + " '" + collection + "' in db '" + s.db + "'")
 	}
-	err := c.Find(query).All(&results)
+	err := c.Find(query).All(results)
 	return err
 }
 
@@ -122,7 +122,7 @@ func (s *tMongo) FindOne(collection string, query interface{}, result interface{
 	if c == nil {
 		return errors.New(ErrCannotSwitchCollection + " '" + collection + "' in db '" + s.db + "'")
 	}
-	err := c.Find(query).One(&result)
+	err := c.Find(query).One(result)
 	return err
 }
 
