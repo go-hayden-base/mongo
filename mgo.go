@@ -88,7 +88,7 @@ func (s *tMongo) Insert(collection string, docs ...interface{}) error {
 	if c == nil {
 		return errors.New(ErrCannotSwitchCollection + " '" + collection + "' in db '" + s.db + "'")
 	}
-	return c.Insert(docs)
+	return c.Insert(docs...)
 }
 
 func (s *tMongo) Update(collection string, selector interface{}, update interface{}) error {
